@@ -20,7 +20,8 @@ datasets:
   - AI-Solutions-KK/face_recognition_demo_dataset
 ---
 
-# Face Recognition Model (FaceNet embeddings + SVM)
+# Face Recognition Model_(CNN embeddings + SVM)
+DEEP LEARNING & ML JOINTLY USED TO SAVE COMPUTATIONAL POWER 
 
 This repository stores my trained face-recognition model.  
 It contains the SVM classifier and supporting numpy files used in my
