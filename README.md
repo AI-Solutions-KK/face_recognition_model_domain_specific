@@ -137,14 +137,3 @@ You're done.
 
 ---
 
-If you want, I can also prepare a **professional HF Model Card** with:  
-✔ Model Architecture  
-✔ Training Procedure  
-✔ Evaluation Metrics  
-✔ Limitations  
-✔ Intended Use / Misuse  
-✔ Citations  
-
-Just say **“make model card pro version”**.
-
-Let me know when to update!
