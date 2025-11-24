@@ -18,32 +18,30 @@ tags:
 datasets:
   - AI-Solutions-KK/face_recognition_demo_dataset
 ---
-
 # 🧠 Face Recognition Model (CNN Embeddings + SVM)
-### **Deep Learning + Machine Learning Combined for Efficient CPU-Based Face Recognition**
 
-This repository stores my trained **Face Recognition Model** using:
+**Domain-specific face recognition model** using:
 
 - **FaceNet (InceptionResnetV1)** to extract 512-D face embeddings  
-- **SVM Classifier** for identity recognition  
-- **Centroid baseline** for fast cosine-similarity checks  
+- **SVM classifier** for identity recognition  
+- **Centroid baseline** for cosine-similarity checks / open-set support  
 
-Built to run **efficiently on CPU**, making it ideal for lightweight deployment, low-power systems, and Streamlit apps.
-
----
-
-## 📁 Files in this Repository
-
-| File | Description |
-|------|-------------|
-| `svc_model_retrained.pkl` | SVM classifier trained on FaceNet embeddings |
-| `centroids.npy` | Class centroids for cosine-similarity baseline |
-| `classes.npy` | List of all identity labels |
-| `README.md` | This model card |
+Designed to run efficiently on **CPU**, ideal for lightweight deployment and Streamlit apps.
 
 ---
 
-# 🚀 How to Load This Model in Python
+## 📦 Artifacts in This Repository
+
+| File              | Description                                             |
+|-------------------|---------------------------------------------------------|
+| `svc_model.pkl`   | Trained SVM classifier on FaceNet embeddings (105 classes) |
+| `centroids.npy`   | Class centroids (mean embeddings per identity)         |
+| `classes.npy`     | List of identity labels (class order used by the SVM)  |
+| `README.md`       | Model documentation                                    |
+
+---
+
+## 🚀 Load Model from Hugging Face
 
 ```python
 from huggingface_hub import hf_hub_download
@@ -52,8 +50,7 @@ import numpy as np
 
 REPO_ID = "AI-Solutions-KK/face_recognition"
 
-# Download model files from this HF repo
-svc_path = hf_hub_download(REPO_ID, "svc_model_retrained.pkl")
+svc_path = hf_hub_download(REPO_ID, "svc_model.pkl")
 centroids_path = hf_hub_download(REPO_ID, "centroids.npy")
 classes_path = hf_hub_download(REPO_ID, "classes.npy")
 
@@ -61,79 +58,109 @@ svc_model = joblib.load(svc_path)
 centroids = np.load(centroids_path)
 class_names = np.load(classes_path, allow_pickle=True)
 
-print("Model loaded successfully!")
+print("Model loaded successfully. Classes:", len(class_names))
 ```
 
 ---
 
-# 🔮 Simple Inference Example (Predict Face Identity)
+## 🔮 Simple Inference Example (Using FaceNet Embeddings)
 
 ```python
 from huggingface_hub import hf_hub_download
-import joblib
-import numpy as np
-from PIL import Image
-import torch
-from facenet_pytorch import InceptionResnetV1
-import cv2
+import joblib, numpy as np, cv2, torch
+from facenet_pytorch import InceptionResnetV1, MTCNN
 
 REPO_ID = "AI-Solutions-KK/face_recognition"
 
-# Download model
-svc_path = hf_hub_download(REPO_ID, "svc_model_retrained.pkl")
-centroids_path = hf_hub_download(REPO_ID, "centroids.npy")
+# Load classifier + metadata
+svc_path = hf_hub_download(REPO_ID, "svc_model.pkl")
 classes_path = hf_hub_download(REPO_ID, "classes.npy")
 
-svc_model = joblib.load(svc_path)
-centroids = np.load(centroids_path)
+obj = joblib.load(svc_path)
+svc_model = obj["clf"]
+normalizer = obj["norm"]
+label_encoder = obj["le"]
 class_names = np.load(classes_path, allow_pickle=True)
 
-# Load FaceNet backbone
-facenet = InceptionResnetV1(pretrained="vggface2").eval()
+# Load FaceNet backbone + face detector
+device = "cpu"
+mtcnn = MTCNN(keep_all=False, device=device)
+facenet = InceptionResnetV1(pretrained="vggface2").eval().to(device)
 
-def preprocess(img_path):
-    img = Image.open(img_path).convert("RGB")
-    img = np.array(img)
-    img = cv2.resize(img, (160, 160))
-    img = img.astype("float32") / 255.0
-    img = torch.tensor(img).permute(2, 0, 1).unsqueeze(0)
-    return img
-
-def get_embedding(img_path):
-    img = preprocess(img_path)
+def get_embedding(img_path: str) -> np.ndarray:
+    img_bgr = cv2.imread(img_path)
+    if img_bgr is None:
+        raise ValueError(f"Could not read image: {img_path}")
+    img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+    face = mtcnn(img_rgb)
+    if face is None:
+        raise ValueError("No face detected.")
+    if face.dim() == 3:
+        face = face.unsqueeze(0)
     with torch.no_grad():
-        emb = facenet(img).numpy()
+        emb = facenet(face.to(device)).cpu().numpy()
     return emb
 
-def predict_face(img_path):
+def predict_face(img_path: str):
     emb = get_embedding(img_path)
-    pred = svc_model.predict(emb)[0]
-    confidence = np.max(svc_model.decision_function(emb))
-    return pred, confidence
+    emb_norm = normalizer.transform(emb)
+    probs = svc_model.predict_proba(emb_norm)[0]
+    idx = np.argmax(probs)
+    label = label_encoder.inverse_transform([idx])[0]
+    confidence = float(probs[idx])
+    return label, confidence
 
 # -------- RUN ----------
 img_path = "test.jpg"
 label, prob = predict_face(img_path)
-
 print("Predicted Identity:", label)
 print("Confidence Score:", prob)
 ```
 
 ---
 
-# 🧑‍🔧 For Developers — Train on Your Own Dataset  
-This model is intended as a **plug-and-play template**.
+## ⚠️ Important: Domain-Specific / Closed-Set Model
 
-Just replace the dataset with your own and retrain:
-
-- Extract FaceNet embeddings  
-- Train SVM  
-- Upload 3 files:
-  - `svc_model.pkl`
-  - `centroids.npy`
-  - `classes.npy`
-
-You're done.
+- This SVM is trained on **105 specific identities** from the dataset  
+  `AI-Solutions-KK/face_recognition_dataset`.
+- It will **always** predict one of these 105 classes, even for unseen people.
+- For **new datasets / new identities**, you must retrain:
+  1. Compute new embeddings  
+  2. Train SVM  
+  3. Save: `svc_model.pkl`, `classes.npy`, `centroids.npy`
 
 ---
 
+## 🔗 Related Repositories & Live Demo
+
+- **Dataset Repo**  
+  https://huggingface.co/datasets/AI-Solutions-KK/face_recognition_dataset
+
+- **Demo App (Hugging Face)**  
+  https://huggingface.co/spaces/AI-Solutions-KK/face_recognition_model_demo_app
+
+- **Stable Public Streamlit App**  
+  https://facerecognition-tq32v5qkt4ltslejzwymw8.streamlit.app/
+
+- **Full Training Code & Documentation**  
+  https://github.com/AI-Solutions-KK/face_recognition_cnn_svm
+
+---
+
+## 🧑‍🔧 Train on Your Own Dataset
+
+1. Prepare dataset (`root/class_name/image.jpg`)
+2. Extract embeddings (FaceNet or your own)
+3. Train SVM or cosine classifier
+4. Save:
+   - `svc_model.pkl`
+   - `classes.npy`
+   - `centroids.npy`
+
+Then plug into your own app or the provided Streamlit demo.
+
+---
+
+## 👤 Author
+
+**Karan (AI-Solutions-KK)**  
