@@ -1794,7 +1794,8 @@ We welcome contributions! Here's how you can help:
 ### **Contribution Workflow**
 ```bash
 # 1. Fork the repository
-git clone https://github.com/YOUR_USERNAME/face-recognition-system.git
+https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific.git
+
 cd face-recognition-system
 
 # 2. Create feature branch
@@ -1997,6 +1998,7 @@ SOFTWARE.
 ## 🙏 Acknowledgments
 
 ### **Built With**
+IDE : pycharm 
 ```
 ╔═══════════════════════════════════════════════════════════════╗
 ║                    TECHNOLOGY STACK                           ║
