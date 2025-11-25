@@ -2506,11 +2506,14 @@ https://github.com/AI-Solutions-KK/image_processing_demo_app.git
 
 
 
-## Hugging Face link : 
+## Hugging Face link :
+
 Dataset Repo: https://huggingface.co/datasets/AI-Solutions-KK/face_recognition_dataset
 Model Repo: https://huggingface.co/AI-Solutions-KK/face_recognition
 App Repo (UI): https://huggingface.co/spaces/AI-Solutions-KK/face_recognition_model_demo_app
-Use if above not worked LIVE_APP - https://facerecognition-tq32v5qkt4ltslejzwymw8.streamlit.app/
+LIVE_APP - https://facerecognition-tq32v5qkt4ltslejzwymw8.streamlit.app/
+
+if not work (copy link in url bar on your brawser)
 
 ---
 
