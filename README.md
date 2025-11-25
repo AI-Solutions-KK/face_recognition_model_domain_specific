@@ -2489,7 +2489,9 @@ Next Steps:
   5. 📢 Share your project with us!
 
 Questions?
-  Open an issue on GitHub or email : karantatyasokamble@gmail.com
+  Open an issue on GitHub : https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific/issues
+  or
+  email : karankk6340@gmail.com
 
 Happy Coding! 🎭
 ```
