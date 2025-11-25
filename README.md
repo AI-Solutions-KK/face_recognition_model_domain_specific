@@ -1941,7 +1941,7 @@ Version 2.0 (2026) - Next Generation
 
 ### **Datasets**
 
-### **Datasets** *(continued)*
+### **Datasets** 
 ```
 - VGGFace2: 3.3M images, 9,000 identities
   http://www.robots.ox.ac.uk/~vgg/data/vgg_face2/
@@ -2033,22 +2033,12 @@ Development Tools:
 - Open source community - Inspiration & support
 ```
 
-### **Contributors**
-```
-This project is made possible by contributors worldwide.
 
-Top Contributors:
-  • [Your Name] - Project lead & main development
-  • [Contributor 2] - Documentation & testing
-  • [Contributor 3] - Performance optimization
-  • [Contributor 4] - Bug fixes & enhancements
-
-Want to join? See CONTRIBUTING.md
 ```
 
 ---
 
-## 💬 Community & Support
+
 
 ### **Get Help**
 ```
@@ -2057,44 +2047,24 @@ Want to join? See CONTRIBUTING.md
 ╚═══════════════════════════════════════════════════════════════╝
 
 📖 Documentation
-   Full Docs: https://docs.face-recognition-system.io
-   Quick Start: See "Quick Start" section above
+   Full Docs: https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific/blob/main/README.md
    
+   GitHub Repo : https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific.git
+
 🐛 Bug Reports
-   GitHub Issues: https://github.com/yourusername/face-recognition-system/issues
+   GitHub Issues: 
    Template: Bug report, feature request
    
 💬 Discussions
-   GitHub Discussions: https://github.com/yourusername/face-recognition-system/discussions
+   GitHub Discussions: 
    Topics: General, Q&A, Ideas, Show & Tell
    
 📧 Email Support
-   General: hello@face-recognition-system.io
-   Security: security@face-recognition-system.io
-   
-🌐 Community
-   Discord: https://discord.gg/face-recognition-system
-   Reddit: r/FaceRecognitionDev
-   Stack Overflow: Tag [face-recognition-system]
-```
+  karankk6340@gmail.com
 
-### **Stay Updated**
-```
-📰 Newsletter
-   Subscribe: https://face-recognition-system.io/newsletter
-   Frequency: Monthly updates, new features
-   
-🐦 Social Media
-   Twitter: @FaceRecogSystem
-   LinkedIn: Company/FaceRecognitionSystem
-   YouTube: FaceRecognitionSystem (tutorials)
-   
-📝 Blog
-   Technical Blog: https://blog.face-recognition-system.io
-   Topics: Tutorials, case studies, best practices
-   
 ⭐ GitHub
-   Star us: https://github.com/yourusername/face-recognition-system
+   Star us: https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific.git
+            https://github.com/AI-Solutions-KK/image_processing_demo_app.git
    Watch for updates
    Fork to contribute
 ```
@@ -2131,32 +2101,6 @@ Advanced (5-10 hours)
 ✓ Integration with other systems (2 hours)
 ```
 
-### **Video Tutorials**
-```
-📺 Official YouTube Channel
-
-Playlist 1: Getting Started (30 minutes)
-  • Episode 1: Installation & Setup (10 min)
-  • Episode 2: First Face Recognition Model (10 min)
-  • Episode 3: Understanding the Pipeline (10 min)
-
-Playlist 2: Deep Dive (2 hours)
-  • Episode 1: MTCNN Face Detection Explained (20 min)
-  • Episode 2: InceptionResnetV1 Architecture (20 min)
-  • Episode 3: Transfer Learning Concepts (20 min)
-  • Episode 4: SVM vs Centroid Classifiers (20 min)
-  • Episode 5: Smart Augmentation Strategy (20 min)
-  • Episode 6: Open-Set Recognition (20 min)
-
-Playlist 3: Real-World Projects (3 hours)
-  • Project 1: Attendance System (45 min)
-  • Project 2: Security Access Control (45 min)
-  • Project 3: Photo Tagging App (45 min)
-  • Project 4: Customer Recognition (45 min)
-```
-
-### **Code Examples**
-```python
 # ============================================
 # EXAMPLE 1: MINIMAL FACE RECOGNITION
 # ============================================
@@ -2489,7 +2433,9 @@ storage.save_embedding(embedding, 'person123', 'secure_embeddings/person123.enc'
 ╚═══════════════════════════════════════════════════════════════╝
 
 🌐 Website
-https://facerecognition-tq32v5qkt4ltslejzwymw8.streamlit.app/
+[https://facerecognition-tq32v5qkt4ltslejzwymw8.streamlit.app/
+](https://github.com/AI-Solutions-KK/image_processing_demo_app.git)
+
 📧 Email
    karantatyasokamble@gmail.com
 
@@ -2497,7 +2443,11 @@ https://facerecognition-tq32v5qkt4ltslejzwymw8.streamlit.app/
    https://www.linkedin.com/in/karan-tatyaso-kamble-b06762383/
 
 💻 GitHub
-   The system is modular and split into:
+        https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific/blob/main/README.md
+
+        https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific.git
+
+## The system is modular and split into:
 
 Dataset Repo: https://huggingface.co/datasets/AI-Solutions-KK/face_recognition_dataset
 Model Repo: https://huggingface.co/AI-Solutions-KK/face_recognition
@@ -2508,6 +2458,9 @@ Use if above not worked LIVE_APP - https://facerecognition-tq32v5qkt4ltslejzwymw
    https://www.linkedin.com/in/karan-tatyaso-kamble-b06762383/
    
 📚 Documentation
+
+    https://github.com/AI-Solutions-KK/face_recognition_model_domain_specific/blob/main/README.md
+
    This is the Documentation
 ---
 
